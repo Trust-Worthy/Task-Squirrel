@@ -9,6 +9,7 @@ import UIKit
 import MapKit
 
 // TODO: Import PhotosUI
+import PhotosUI
 
 class TaskDetailViewController: UIViewController {
 
@@ -59,6 +60,34 @@ class TaskDetailViewController: UIViewController {
 
     @IBAction func didTapAttachPhotoButton(_ sender: Any) {
         // TODO: Check and/or request photo library access authorization.
+        
+        if PHPhotoLibrary.authorizationStatus(for: .readWrite) != .authorized {
+            
+            // request photo library access
+            PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] status in
+                
+                switch status {
+                case .authorized:
+                    // The user authorized access to their photo library
+                    // show picker (on main thread)
+                    DispatchQueue.main.async {
+                        self?.presentImagePicker()
+                    }
+                    
+                default:
+                    // show settings alert
+                    DispatchQueue.main.async {
+                        // helper method to show setting alert
+                        self?.presentGoToSettingsAlert()
+                    }
+                }
+                
+            }
+        } else {
+            // show image picker
+            presentImagePicker()
+        }
+          
 
     }
 

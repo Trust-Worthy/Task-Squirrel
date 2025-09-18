@@ -46,6 +46,7 @@ class TaskListViewController: UIViewController {
 
             // Since the segue is connected to the navigation controller that manages the ComposeViewController
             // we need to access the navigation controller first...
+            // MARK: - Key way of passing data  --- navigating between screens
             if let composeNavController = segue.destination as? UINavigationController,
                 // ...then get the actual ComposeViewController via the navController's `topViewController` property.
                let composeViewController = composeNavController.topViewController as? TaskComposeViewController {
@@ -54,7 +55,11 @@ class TaskListViewController: UIViewController {
                 composeViewController.onComposeTask = { [weak self] task in
                     self?.tasks.append(task)
                 }
+                
+                
             }
+            
+
 
             // Segue to Detail View Controller
         } else if segue.identifier == "DetailSegue" {
