@@ -61,6 +61,7 @@ class TaskDetailViewController: UIViewController {
     @IBAction func didTapAttachPhotoButton(_ sender: Any) {
         // TODO: Check and/or request photo library access authorization.
         
+        // check authorization status
         if PHPhotoLibrary.authorizationStatus(for: .readWrite) != .authorized {
             
             // request photo library access
@@ -75,9 +76,9 @@ class TaskDetailViewController: UIViewController {
                     }
                     
                 default:
-                    // show settings alert
+                    // show settings alert on main thread
                     DispatchQueue.main.async {
-                        // helper method to show setting alert
+                        // helper method to show settings alert
                         self?.presentGoToSettingsAlert()
                     }
                 }

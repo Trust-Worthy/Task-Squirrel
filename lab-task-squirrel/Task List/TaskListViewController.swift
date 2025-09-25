@@ -11,7 +11,9 @@ class TaskListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var emptyStateLabel: UILabel!
-
+    
+    // Property observer -- calls the emptyStateLabel and reloads the table view
+    // anytime there is a change to the Task list
     var tasks = [Task]() {
         didSet {
             emptyStateLabel.isHidden = !tasks.isEmpty
