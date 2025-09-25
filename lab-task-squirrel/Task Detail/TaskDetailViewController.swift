@@ -95,10 +95,26 @@ class TaskDetailViewController: UIViewController {
     private func presentImagePicker() {
         // TODO: Create, configure and present image picker.
         
-        // 
+        // create a configuration object
         var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
         
+        // set filter to only show imagaes as options (i.e. no videos)
+        config.filter = .images
         
+        // request the original file format. Fastest method because it avoids transcoding
+        config.preferredAssetRepresentationMode = .current
+        
+        // only allow 1 image to be selected at a time
+        config.selectionLimit = 1
+        
+        // instantiate a picker, passing in the configuration
+        let picker = PHPickerViewController(configuration: config)
+        
+        // set the picker delegate so I can receive whatever image the user picks
+        picker.delegate = self
+        
+        // present the picker
+        present(picker, animated: true)
     }
 
     func updateMapView() {
@@ -148,5 +164,12 @@ extension TaskDetailViewController {
         alertController.addAction(action)
 
         present(alertController, animated: true)
+    }
+    
+    
+    // MARK: - View Controller extension for PHPicker
+    
+    extension TaskDetailViewController: PHPickerViewControllerDelegate {
+        
     }
 }
