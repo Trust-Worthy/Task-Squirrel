@@ -194,7 +194,17 @@ extension TaskDetailViewController: PHPickerViewControllerDelegate {
         
         print("📍 Image location coordinate: \(location.coordinate)")
         
+        
+        // Get the chosen image
+        
+        // make sure there is a non-nil item provider
+        guard let provider = result?.itemProvider,
+              // make sure the provider can load a UIImage
+              
+              
     }
+    
+    
     
     
 }
