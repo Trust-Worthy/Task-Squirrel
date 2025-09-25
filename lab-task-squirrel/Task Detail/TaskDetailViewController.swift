@@ -94,7 +94,11 @@ class TaskDetailViewController: UIViewController {
 
     private func presentImagePicker() {
         // TODO: Create, configure and present image picker.
-
+        
+        // 
+        var config = PHPickerConfiguration(photoLibrary: PHPhotoLibrary.shared())
+        
+        
     }
 
     func updateMapView() {
