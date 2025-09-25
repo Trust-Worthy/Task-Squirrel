@@ -222,14 +222,20 @@ extension TaskDetailViewController: PHPickerViewControllerDelegate {
                 
                 // set the picked image and location on the task
                 self?.task.set(image, with: location)
+                
+                // update the UI since I updated the task
+                self?.updateUI()
+                
+                // update the map view since I now have an image location
+                self?.updateMapView()
             }
             
             
         }
-              
+        
     }
     
     
     
-    
+}
 
