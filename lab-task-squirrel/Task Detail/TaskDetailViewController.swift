@@ -167,9 +167,34 @@ extension TaskDetailViewController {
     }
     
     
-    // MARK: - View Controller extension for PHPicker
     
-    extension TaskDetailViewController: PHPickerViewControllerDelegate {
+}
+
+// MARK: - View Controller extension for PHPicker
+
+extension TaskDetailViewController: PHPickerViewControllerDelegate {
+    
+    // function to get metadata from the photo
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        
+        // dismiss the picker
+        picker.dismiss(animated: true)
+        
+        // get the selected image asset -- grab the 1st item in the array since only allowed a selection limit of 1
+        let result = results.first
+        
+        // get image location
+        // PHAsset contains metadata about an image or video (ex. location, size, etc.)
+        
+        guard let assetId = result?.assetIdentifier,
+        let location = PHAsset.fetchAssets(withLocalIdentifiers: [assetId], options: nil).firstObject?.location else {
+            print("No location data in selected image")
+            return
+        }
+        
+        print("📍 Image location coordinate: \(location.coordinate)")
         
     }
+    
+    
 }
