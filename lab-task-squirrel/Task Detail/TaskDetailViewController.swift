@@ -187,7 +187,7 @@ extension TaskDetailViewController: PHPickerViewControllerDelegate {
         // PHAsset contains metadata about an image or video (ex. location, size, etc.)
         
         guard let assetId = result?.assetIdentifier,
-        let location = PHAsset.fetchAssets(withLocalIdentifiers: [assetId], options: nil).firstObject?.location else {
+              let location = PHAsset.fetchAssets(withLocalIdentifiers: [assetId], options: nil).firstObject?.location else {
             print("No location data in selected image")
             return
         }
@@ -200,11 +200,36 @@ extension TaskDetailViewController: PHPickerViewControllerDelegate {
         // make sure there is a non-nil item provider
         guard let provider = result?.itemProvider,
               // make sure the provider can load a UIImage
-              
+              provider.canLoadObject(ofClass: UIImage.self) else { return }
+        
+        // Load a UIImage from the provider
+        provider.loadObject(ofClass: UIImage.self) { [weak self] object, error in
+            
+            // handle any errors
+            if let error = error {
+                DispatchQueue.main.async { [weak self] in self?.showAlert(for: error) }
+                
+                
+            }
+            
+            // make sure I can cast the returned object to a UIImage
+            guard let image = object as? UIImage else { return }
+            
+            print("🌉 We have an image!")
+            
+            // UI updates should be done on the main thread
+            DispatchQueue.main.async { [weak self] in
+                
+                // set the picked image and location on the task
+                self?.task.set(image, with: location)
+            }
+            
+            
+        }
               
     }
     
     
     
     
-}
+
