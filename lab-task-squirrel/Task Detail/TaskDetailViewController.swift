@@ -28,9 +28,9 @@ class TaskDetailViewController: UIViewController {
         super.viewDidLoad()
 
         // TODO: Register custom annotation view
-
+        mapView.register(TaskAnnotationView.self, forAnnotationViewWithReuseIdentifier: TaskAnnotationView.identifier)
         // TODO: Set mapView delegate
-
+        mapView.delegate = self
         // UI Candy
         mapView.layer.cornerRadius = 12
 
@@ -133,6 +133,11 @@ class TaskDetailViewController: UIViewController {
         
         let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         mapView.setRegion(region, animated: true)
+        
+        // Add an annotation
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        mapView.addAnnotation(annotation)
     }
 }
 
@@ -247,7 +252,25 @@ extension TaskDetailViewController: PHPickerViewControllerDelegate {
         
     }
     
+}
+
+// MARK: - MKMAPView Extension
+
+extension TaskDetailViewController: MKMapViewDelegate {
     
-    
+    // Implement mapView(_:viewFor:) delegate method.
+    func mapView(_ mapView: MKMapView, viewFor annotation: any MKAnnotation) -> MKAnnotationView? {
+        // Dequeue the annotation view for the specified reuse identifier and annotation.
+        // Cast the dequeued annotation view to your specific custom annotation view class, `TaskAnnotationView`
+        // 💡 This is very similar to how we get and prepare cells for use in table views.
+        
+        guard let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: TaskAnnotationView.identifier, for: annotation) as? TaskAnnotationView else {
+            fatalError("Unable to dequeue TaskAnnotationView")
+        }
+        
+        // Configure the annotation view, passing in the task's image
+        annotationView.configure(with: task.image)
+        return annotationView
+    }
 }
 
