@@ -119,8 +119,20 @@ class TaskDetailViewController: UIViewController {
 
     func updateMapView() {
         // TODO: Set map viewing region and scale
-
+        // make sure the task has image location
+        
+        guard let imageLocation = task.imageLocation else {return }
+        
         // TODO: Add annotation to map view
+        // get the coordinate from the image location . This is the latitude / longitude of the location
+        let coordinate = imageLocation.coordinate
+        
+        // set the map view's region based on the coordinate of the image
+        // the span represents the the maps's "zoom level".
+        // A smaller value yields a more "zoomed in" map area, while a larger value is more "zoomed out".
+        
+        let region = MKCoordinateRegion(center: coordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        mapView.setRegion(region, animated: true)
     }
 }
 
