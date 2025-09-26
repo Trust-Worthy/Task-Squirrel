@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -35,6 +35,10 @@
 		CB9D9ED3292488B000F8F51B /* TaskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailViewController.swift; sourceTree = "<group>"; };
 		CB9D9ED9292489E000F8F51B /* TaskComposeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TaskComposeViewController.swift; path = ../TaskComposeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		670ADFBD2E871C5800BD15E9 /* Photo View */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Photo View"; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		CB602B9229247359006C6727 /* Frameworks */ = {
@@ -72,10 +76,11 @@
 				CB9D9ED82924896400F8F51B /* Task Compose */,
 				CB9D9ED5292488BC00F8F51B /* Task Detail */,
 				CB9D9ED2292483C400F8F51B /* Models */,
-				CB602B9E29247359006C6727 /* Main.storyboard */,
+				670ADFBD2E871C5800BD15E9 /* Photo View */,
 				CB602BA32924735C006C6727 /* LaunchScreen.storyboard */,
 				CB602BA12924735C006C6727 /* Assets.xcassets */,
 				CB602BA62924735C006C6727 /* Info.plist */,
+				CB602B9E29247359006C6727 /* Main.storyboard */,
 			);
 			path = "lab-task-squirrel";
 			sourceTree = "<group>";
@@ -128,6 +133,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				670ADFBD2E871C5800BD15E9 /* Photo View */,
 			);
 			name = "lab-task-squirrel";
 			productName = "lab-task-squirrel";

@@ -19,6 +19,9 @@ class TaskDetailViewController: UIViewController {
     @IBOutlet private weak var descriptionLabel: UILabel!
     @IBOutlet private weak var attachPhotoButton: UIButton!
 
+    // button to view photo
+    @IBOutlet weak var viewPhotoButton: UIButton!
+    
     // MapView outlet
     @IBOutlet private weak var mapView: MKMapView!
 
@@ -38,12 +41,23 @@ class TaskDetailViewController: UIViewController {
         updateUI()
         updateMapView()
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        // Segue to Detail View Controller
+        if segue.identifier == "PhotoSegue" {
+            if let photoViewController = segue.destination as? PhotoViewController {
+                photoViewController.task = task
+            }
+        }
+            
+    }
 
     /// Configure UI for the given task
     private func updateUI() {
         titleLabel.text = task.title
         descriptionLabel.text = task.description
-
+        
+        
         let completedImage = UIImage(systemName: task.isComplete ? "circle.inset.filled" : "circle")
 
         // calling `withRenderingMode(.alwaysTemplate)` on an image allows for coloring the image via it's `tintColor` property.
@@ -56,6 +70,8 @@ class TaskDetailViewController: UIViewController {
 
         mapView.isHidden = !task.isComplete
         attachPhotoButton.isHidden = task.isComplete
+        viewPhotoButton.isHidden = !task.isComplete
+
     }
 
     @IBAction func didTapAttachPhotoButton(_ sender: Any) {
